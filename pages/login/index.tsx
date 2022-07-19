@@ -1,4 +1,5 @@
 import Image from "next/image";
+import Head from "next/head";
 
 // Image 특징
 // 1. 빌드타임에 image를 최적화 하는 대신에 뷰포트에서 lazy load할 떄 최적화한다.
@@ -7,9 +8,15 @@ import Image from "next/image";
 // 2. 뷰포트에 따른 resizing (반응형)
 // 3. 브라우저가 지원하는 포맷으로 이미지 포맷을 선택
 
+// Head 특징
+// 해당 페이지에 대해서 head 태그안에 내용을 수정할 수 있다.
+
 function Login() {
   return (
     <div>
+      <Head>
+        <title>Next App - Login</title>
+      </Head>
       <h2>login</h2>
       <Image
         src="/images/profile.jpg" // Route of the image file
