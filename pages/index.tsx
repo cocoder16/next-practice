@@ -1,8 +1,5 @@
-import type { NextPage } from "next";
-import Head from "next/head";
-import Image from "next/image";
+import Link from "next/link";
 
-import styles from "styles/Home.module.css";
 import { getSortedPostsData } from "lib/posts";
 
 function Home({ allPostsData }: any) {
@@ -12,9 +9,7 @@ function Home({ allPostsData }: any) {
       <ul>
         {allPostsData.map(({ id, date, title }: any) => (
           <li key={id}>
-            {title}
-            <br />
-            {id}
+            <Link href={`/posts/${id}`}>{title}</Link>
             <br />
             {date}
           </li>
@@ -24,7 +19,7 @@ function Home({ allPostsData }: any) {
   );
 }
 
-// getStaticProps - static generation을 하기 위한 메서드
+// getStaticPaths, getStaticProps - static generation을 하기 위한 메서드
 // server-side에서 실행된다.
 // 개발모드에서는 매 request마다 실행된다.
 // 프로덕션모드에서는 빌드할때 실행된다.
