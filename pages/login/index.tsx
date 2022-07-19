@@ -2,6 +2,8 @@ import Image from "next/image";
 import Head from "next/head";
 import Script from "next/script";
 
+import styles from "styles/Login.module.scss";
+
 // Image 특징
 // 1. 빌드타임에 image를 최적화 하는 대신에 뷰포트에서 lazy load할 떄 최적화한다.
 // 따라서 1) 이미지가 아무리 많아도 빌드타임은 증가하지 않는다.
@@ -17,6 +19,10 @@ import Script from "next/script";
 // login 페이지에서 추가 스크립트를 lazy load로 불러오도록 아래 코드를 짰다.
 // 불러온 script는 head 태그 안에 붙는다. 이후 페이지를 변경해도 script가 남아있는 것이 확인되었다.
 
+// styles 특징
+// 자동으로 유니크한 id, classname을 생성한다. 따라서 오버라이드 걱정안해도 된다.
+// component level에서 스코프 스타일링을 할 수 있다.
+
 function Login() {
   return (
     <div>
@@ -31,6 +37,12 @@ function Login() {
         }
       />
       <h2>login</h2>
+      <div id={styles.form}>
+        <span>id: </span>
+        <input type="text" className={styles.field} />
+        <span>pw: </span>
+        <input type="text" />
+      </div>
       <Image
         src="/images/profile.jpg" // Route of the image file
         height={144} // Desired size with correct aspect ratio
