@@ -1,5 +1,10 @@
 import Head from "next/head";
+import dynamic from "next/dynamic";
+import { useState } from "react";
 
+const Modal = dynamic(() => import("components/Modal"), {
+  ssr: false,
+});
 import { getUsers } from "services/users";
 
 interface Props {
@@ -7,6 +12,12 @@ interface Props {
 }
 
 function Users({ users }: Props) {
+  const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
+
+  const toggleModal = () => {
+    setIsModalOpen(!isModalOpen);
+  };
+
   return (
     <div>
       <Head>
@@ -15,6 +26,8 @@ function Users({ users }: Props) {
       {users.map((user: User) => (
         <li key={user.id}>{user.email}</li>
       ))}
+      <button onClick={toggleModal}>modal</button>
+      {isModalOpen && <Modal />}
     </div>
   );
 }
