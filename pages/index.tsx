@@ -2,12 +2,16 @@ import Link from "next/link";
 
 import { getSortedPostsData } from "lib/posts";
 
-function Home({ allPostsData }: any) {
+interface Props {
+  posts: PostSummary[];
+}
+
+function Home({ posts }: Props) {
   return (
     <section>
       <h2>Blog</h2>
       <ul>
-        {allPostsData.map(({ id, date, title }: any) => (
+        {posts.map(({ id, date, title }: PostSummary) => (
           <li key={id}>
             <Link href={`/posts/${id}`}>{title}</Link>
             <br />
@@ -25,21 +29,12 @@ function Home({ allPostsData }: any) {
 // 프로덕션모드에서는 빌드할때 실행된다.
 
 export async function getStaticProps() {
-  const allPostsData = getSortedPostsData();
+  const posts = getSortedPostsData();
   return {
     props: {
-      allPostsData,
+      posts,
     },
   };
 }
-
-// TODO
-// export async function getServerSideProps(context) {
-//   return {
-//     props: {
-//       // props for your component
-//     },
-//   };
-// }
 
 export default Home;

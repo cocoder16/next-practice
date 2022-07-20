@@ -9,6 +9,7 @@ function Header() {
     <div>
       <Link href="/">Home</Link>
       <Link href="/login">Login</Link>
+      <Link href="/users">Users</Link>
     </div>
   );
 }

@@ -2,19 +2,23 @@ import Head from "next/head";
 
 import { getAllPostIds, getPostData } from "lib/posts";
 
-function Post({ postData }: any) {
+interface Props {
+  post: Post;
+}
+
+function Post({ post }: Props) {
   return (
     <div>
       <Head>
-        <title>{postData.title}</title>
+        <title>{post.title}</title>
       </Head>
-      {postData.title}
+      {post.title}
       <br />
-      {postData.id}
+      {post.id}
       <br />
-      {postData.date}
+      {post.date}
       <br />
-      <div dangerouslySetInnerHTML={{ __html: postData.contentHtml }} />
+      <div dangerouslySetInnerHTML={{ __html: post.contentHtml }} />
     </div>
   );
 }
@@ -29,13 +33,15 @@ export async function getStaticPaths() {
   };
 }
 
-export async function getStaticProps({ params }: any) {
+export async function getStaticProps({ params }: StaticPath) {
   // Fetch necessary data for the blog post using params.id
-  const postData = await getPostData(params.id);
+  // parameter: getStaticPaths가 반환하는 paths
+
+  const post = await getPostData(params.id);
 
   return {
     props: {
-      postData,
+      post,
     },
   };
 }

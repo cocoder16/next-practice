@@ -6,10 +6,10 @@ import html from "remark-html";
 
 const postsDirectory = path.join(process.cwd(), "data/posts");
 
-export function getSortedPostsData() {
+export function getSortedPostsData(): PostSummary[] {
   // Get file names under /posts
   const fileNames = fs.readdirSync(postsDirectory);
-  const allPostsData: any[] = fileNames.map((fileName) => {
+  const allPostsData = fileNames.map((fileName) => {
     // Remove ".md" from file name to get id
     const id = fileName.replace(/\.md$/, "");
 
@@ -23,7 +23,8 @@ export function getSortedPostsData() {
     // Combine the data with the id
     return {
       id,
-      ...matterResult.data,
+      title: matterResult.data.title,
+      date: matterResult.data.date,
     };
   });
   // Sort posts by date
@@ -38,7 +39,7 @@ export function getSortedPostsData() {
   });
 }
 
-export function getAllPostIds() {
+export function getAllPostIds(): StaticPath[] {
   const fileNames = fs.readdirSync(postsDirectory);
 
   return fileNames.map((fileName) => {
@@ -50,7 +51,7 @@ export function getAllPostIds() {
   });
 }
 
-export async function getPostData(id: string) {
+export async function getPostData(id: string): Promise<Post> {
   const fullPath = path.join(postsDirectory, `${id}.md`);
   const fileContents = fs.readFileSync(fullPath, "utf8");
 
@@ -67,7 +68,8 @@ export async function getPostData(id: string) {
   // Combine the data with the id
   return {
     id,
-    ...matterResult.data,
+    title: matterResult.data.title,
+    date: matterResult.data.date,
     contentHtml,
   };
 }
