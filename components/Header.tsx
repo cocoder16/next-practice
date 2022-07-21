@@ -10,6 +10,7 @@ function Header() {
       <Link href="/">Home</Link>
       <Link href="/login">Login</Link>
       <Link href="/users">Users</Link>
+      <Link href="/shallow-route">Shallow Route</Link>
     </div>
   );
 }
