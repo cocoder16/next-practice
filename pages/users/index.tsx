@@ -34,10 +34,17 @@ function Users({ users }: Props) {
 
 // SSR 메서드
 // network 탭 열어보면 요청은 서버쪽에서 이미 끝난걸로 보이고, json 데이터 파일을 받아옴
-export async function getServerSideProps({ query }: any) {
+// https://nextjs.org/docs/basic-features/data-fetching/get-server-side-props
+// You should use getServerSideProps only if you need to render a page whose data must be fetched at request time
+export async function getServerSideProps({ query, req, res }: any) {
   const {
     data: { data },
   } = await getUsers(1);
+
+  res.setHeader(
+    "Cache-Control",
+    "public, s-maxage=10, stale-while-revalidate=59"
+  ); // cache dynamic response
 
   return {
     props: {
